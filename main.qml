@@ -13,90 +13,69 @@ ApplicationWindow {
         width: parent.width; height: (parent.height * 2) / 3
         color: "lightGrey"
 
-        ListModel {
-            id: colorsModel
-            ListElement {
-                colorCode: "red"
-            }
-            ListElement {
-                colorCode: "green"
-            }
-            ListElement {
-                colorCode: "blue"
-            }
-            ListElement {
-                colorCode: "orange"
-            }
-            ListElement {
-                colorCode: "white"
-            }
-            ListElement {
-                colorCode: "purple"
-            }
-            ListElement {
-                colorCode: "gray"
-            }
-            ListElement {
-                colorCode: "yellow"
-            }
-            ListElement {
-                colorCode: "purple"
-            }
-        }
-
         Component {
             id: horzDelegate
 
             Rectangle {
                 id: rect
-                property int rowIndex: 0
-                color: "lightblue"
-                width: parent.width
+                width: parent.parent.width
                 height: 50
-
-                Text { text: index }
-                Text { text: rowIndex }
-
+                Text {
+                    text : name
+                }
 
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        console.log(colorCode + " clicked");
+                        console.log(name + " clicked");
                     }
                 }
                Component.onCompleted: {
-                   var row = parent.parent.parent.rowIndex
-                   if (typeof row != 'undefined') {
-                       this.rowIndex = row
-                   }
+//                   console.log("width", width, "index:", index)
                 }
             }
         }
+
 
         Component {
             id: vertDelegate
 
             ListView {
-                width: parent.width;
+                property var peopleList
+                width: parent.parent.width
                 height: 50;
                 spacing: 20
-                model: colorsModel
+                model: ListModel {
+                    id:peopleModel
+                }
                 orientation: ListView.Horizontal
                 delegate: horzDelegate
                 Component.onCompleted: {
-                   parent.rowIndex = index
-//                    console.log(rowIndex)
+                    Model.mystuff.setUp()
+                    if (typeof Model.people[index] != 'undefined') {
+                        var list = Model.people[index].list
+                        for (var person in list) {
+                            peopleModel.append(list[person])
+//                            console.log("person", list[person], peopleModel.count)
+                        }
+                    }
                 }
+
             }
         }
 
         ListView {
             id:listView
             anchors.fill: parent
-            model: 30
+            model: Model.people.length
             spacing: 20
             cacheBuffer: 200 // in pixels
             delegate: vertDelegate
+
+            Request {
+                id: jsonRequest
+
+            }
         }
     }
 
