@@ -1,11 +1,4 @@
 
-
-var mystuff = {
-        setUp: function () {
-            return 0
-        }
-    }
-
 var people = [
     {"list": [
                {"name":"Gregg", "age":"59" },
@@ -38,3 +31,4 @@ var people = [
                {"name":"Louise", "age":"33" }
     ]}
 ]
+

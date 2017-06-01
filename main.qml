@@ -9,9 +9,18 @@ ApplicationWindow {
     height: 480
     title: qsTr("Hello World")
 
+    Navigator {
+        id: navigator
+    }
+
     Rectangle {
         width: parent.width; height: (parent.height * 2) / 3
         color: "lightGrey"
+
+        Text {
+            id: textid
+            text: "yahoo"
+        }
 
         Component {
             id: horzDelegate
@@ -41,6 +50,7 @@ ApplicationWindow {
             id: vertDelegate
 
             ListView {
+                id: vertView
                 property var peopleList
                 width: parent.parent.width
                 height: 50;
@@ -61,6 +71,19 @@ ApplicationWindow {
                     }
                 }
 
+                Rectangle {
+                    id:vertRect
+                    width: parent.width
+                    anchors.bottom: parent.bottom
+                    height:20
+                    color:"Red"
+                }
+                MouseArea {
+                    anchors.fill:parent
+                    onClicked: {
+                        vertRect.visible = ! vertRect.visible
+                    }
+                }
             }
         }
 

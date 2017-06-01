@@ -4,7 +4,8 @@
         <file>Page1.qml</file>
         <file>Page1Form.ui.qml</file>
         <file>model.js</file>
-        <file>app.js</file>
         <file>Request.qml</file>
+        <file>stuff.qml</file>
+        <file>Navigator.qml</file>
     </qresource>
 </RCC>
